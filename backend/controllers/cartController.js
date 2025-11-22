@@ -3,8 +3,8 @@ import Product from "../models/Product.js";
 
 export const addToCart = async (req, res) => {
   try {
-    //userId= req.user.id
-    const userId = "691dac6684e16f331e2c4b70"; 
+    //userId= req.user.id                           //In authRoutes while token is generated and through that token user id and role can be fetched
+    const userId = "691dac6684e16f331e2c4b70";      //For test hardcoded this
     const { productId, quantity } = req.body;
 
     // Check if product exists
@@ -12,11 +12,11 @@ export const addToCart = async (req, res) => {
     
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    // Check if user has a cart
-    let cart = await Cart.findOne({ userId: userId });
+    
+    let cart = await Cart.findOne({ userId: userId });   // Check if user has a cart
 
-    // If no cart → create one
-    if (!cart) {
+    
+    if (!cart) {                                        // If no cart → create one
       cart = await Cart.create({
         userId: userId,
         items: [{ product: productId, quantity }],
@@ -24,17 +24,17 @@ export const addToCart = async (req, res) => {
       return res.json({ message: "Product added to new cart", cart });
     }
 
-    // If cart exists → check if item already exists
-    const itemIndex = cart.items.findIndex(
+   
+    const itemIndex = cart.items.findIndex(              // If cart exists → check if item already exists
       (item) => item.product.toString() === productId
     );
 
     if (itemIndex > -1) {
-      // Update quantity
-      cart.items[itemIndex].quantity += quantity;
+      
+      cart.items[itemIndex].quantity += quantity;        // Update quantity
     } else {
-      // Push new product to array
-      cart.items.push({ product: productId, quantity });
+     
+      cart.items.push({ product: productId, quantity });   // Push new product to array
     }
 
     await cart.save();
@@ -55,7 +55,7 @@ export const getCart = async (req, res) => {
       "items.product"
     );
 
-    if (!cart) return res.json({ items: [] }); // empty cart
+    if (!cart) return res.json({ items: [] });                // empty cart
 
     res.json(cart);
   } catch (error) {

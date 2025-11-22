@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+ // ---------------------------------------------
+  // COUPON SCHEMA
+  // ---------------------------------------------
 const couponSchema = new mongoose.Schema({
   code: { type: String, required: true, unique: true, uppercase: true },
 

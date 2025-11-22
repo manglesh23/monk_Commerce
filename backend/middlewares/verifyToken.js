@@ -1,8 +1,11 @@
 import jwt from "jsonwebtoken";
 
+ // ---------------------------------------------
+  // TOKEN VERIFICATION
+  // ---------------------------------------------
 export const verifyToken = (req, res, next) => {
   try {
-    // Get token from headers → Bearer <token>
+    // token from headers → Bearer <token>
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -17,7 +20,7 @@ export const verifyToken = (req, res, next) => {
         return res.status(403).json({ message: "Invalid or expired token" });
       }
 
-      // Attach decoded data to request (userId, email, role, etc.)
+      // Attach decoded data to request (userId)
       req.user = decoded;
       next(); // Continue
     });

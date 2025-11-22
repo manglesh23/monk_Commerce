@@ -10,11 +10,14 @@ import {
   updateCoupon,
 } from "../controllers/couponController.js";
 
+ // ---------------------------------------------
+  // COUPON ROUTES
+  // ---------------------------------------------
+
 const couponRoute = express.Router();
 
 // couponRoute.post("/", applyCoupon);
 couponRoute.post("/createCoupon", createCoupon);
-// couponRoute.post("/coupons", createCoupon);
 couponRoute.get("/", getAllCoupons);
 couponRoute.get("/coupons/:id", getCouponById);
 couponRoute.put("/coupons/update/:id", updateCoupon);

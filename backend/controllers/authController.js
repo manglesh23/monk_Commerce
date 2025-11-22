@@ -22,7 +22,7 @@ export const registerUser = async (req, res) => {
     }
 
     // Hash password
-    const saltRounds = 12; // production recommended: 10-12
+    const saltRounds = 12; 
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Save user
@@ -72,9 +72,9 @@ export const loginUser = async (req, res) => {
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
-    // Optional — store refresh token in DB for session tracking
-    user.refreshToken = refreshToken;
-    await user.save();
+    
+    // user.refreshToken = refreshToken;   //refresh token in can be store DB(Mongo/Redis) for session tracking
+    // await user.save();
 
     return res.status(200).json({
       message: "Login successful",

@@ -1,3 +1,6 @@
+  // ---------------------------------------------
+  // CALCULATE PRODUCT WISE DISCOUNT
+  // ---------------------------------------------
 export function calculateProductWiseDiscount(coupon, cartItems, productMap) {
   let discount = 0;
 

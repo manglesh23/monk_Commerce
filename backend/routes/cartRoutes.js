@@ -7,8 +7,11 @@ import {
   clearCart,
 } from "../controllers/cartController.js";
 
-import { verifyToken } from "../middlewares/verifyToken.js";
+// import { verifyToken } from "../middlewares/verifyToken.js";  DIDN'T IMPLEMENTED FOR FAST SEARCH
 
+ // ---------------------------------------------
+  // CART ROUTES
+  // ---------------------------------------------
 const cartRouter = express.Router();
 
 // cartRouter.use(verifyToken); // all cart routes need login

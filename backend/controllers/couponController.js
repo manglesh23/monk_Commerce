@@ -4,19 +4,25 @@ import Product from "../models/Product.js";
 import { calculateCartWiseDiscount } from "../utils/calculateCartWiseDiscount.js";
 import { calculateBxGyDiscount } from "../utils/calculateBxGyDiscount.js";
 import { calculateProductWiseDiscount } from "../utils/calculateProductWiseDiscount.js";
-// let coupon = [
+
+// let coupon = [                                            //Build this for testing In memeory
 //   { cartWise: { price: 1000, discount: 100 } },
 //   { productWise: { productId: [1, 3], discount: 70 } },
 //   { BxGy: { buyProduct: [1, 2], quantity: 3, getProduct: [3], discount: 30 } },
 // ];
 
+ // ---------------------------------------------------------------------------------------------------
+  // CREATE COUPON, BY VERIFYTOKEN MIDDLEWARE USER ROLE CAN BE VALIDATE, ONLY ADMIN CAN CREATE COUPON
+  //  MIDDLEWARE IS CREATED NOT IMPLEMENTED IN ROUTES (FOR FAST TESTING)
+  // --------------------------------------------------------------------------------------------------
+
 export const createCoupon = async (req, res) => {
   try {
     const {
       code,
-      type, // CART_WISE | PRODUCT_WISE | BXGY
+      type, // CART_WISE | PRODUCT_WISE | BXGY  (Three type of Coupon)
 
-      // COMMON FIELDS
+      // COMMON FIELDS for all of the coupon
       discountType,
       discountValue,
       minCartAmount,
@@ -24,13 +30,13 @@ export const createCoupon = async (req, res) => {
       isActive,
       usageLimit,
 
-      // PRODUCT-WISE
-      applicableProducts,
+      // PRODUCT-WISE, Coupon Available for Selected Product Only
+      applicableProducts,  
 
-      // BXGY
-      buyProducts,
+      // BXGY   (Buy 2 get 1 / Buy 3 get 1)
+      buyProducts, 
       getProducts,
-      repetitionLimit,
+      repetitionLimit,  //How many times a Coupon can be used
     } = req.body;
 
     // Basic validation: Coupon "type" is mandatory
@@ -111,6 +117,10 @@ export const createCoupon = async (req, res) => {
   }
 };
 
+
+ // ---------------------------------------------
+  // GET ALL COUPON
+  // ---------------------------------------------
 export const getAllCoupons = async (req, res) => {
   try {
     const coupons = await Coupon.find();
@@ -120,6 +130,9 @@ export const getAllCoupons = async (req, res) => {
   }
 };
 
+ // ---------------------------------------------
+  // GET COUPON BY GIVEN ID
+  // ---------------------------------------------
 export const getCouponById = async (req, res) => {
   try {
     const coupon = await Coupon.findById(req.params.id);
@@ -130,6 +143,10 @@ export const getCouponById = async (req, res) => {
     res.status(500).json({ message: "Error retrieving coupon" });
   }
 };
+
+ // ---------------------------------------------
+  // UPDATE COUPON BY ID
+  // ---------------------------------------------
 
 export const updateCoupon = async (req, res) => {
   try {
@@ -145,6 +162,10 @@ export const updateCoupon = async (req, res) => {
   }
 };
 
+ // ---------------------------------------------
+  // DELETE COUPON BY COUPON'S ID
+  // ---------------------------------------------
+
 export const deleteCoupon = async (req, res) => {
   try {
     const coupon = await Coupon.findByIdAndDelete(req.params.id);
@@ -156,8 +177,9 @@ export const deleteCoupon = async (req, res) => {
   }
 };
 
-// import Coupon from "../models/Coupon.js";
-// import Product from "../models/Product.js";
+ // ------------------------------------------------------------------
+  // GET ALL APPLICABLE COUPON ON A GIVEN USER'S CART    
+  // -----------------------------------------------------------------
 
 export const getApplicableCoupons = async (req, res) => {
   try {
@@ -221,6 +243,10 @@ export const getApplicableCoupons = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+ // ---------------------------------------------
+  // Aoply A Specific Coupon, Coupon by Id
+  // ---------------------------------------------
 
 export const applySpecificCoupon = async (req, res) => {
   try {

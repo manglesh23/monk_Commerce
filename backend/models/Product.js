@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+ // ---------------------------------------------
+  // PRODUCT SCHEMA
+  // ---------------------------------------------
 const productSchema = new mongoose.Schema({
   title: { type: String, required: true, index: true },
   description: String,
@@ -11,6 +14,9 @@ const productSchema = new mongoose.Schema({
   updatedAt: Date,
 });
 
+ // ---------------------------------------------
+  // INDEX ON PRODUCT SCHEMA 
+  // ---------------------------------------------
 productSchema.index({
   title: "text",
   description: "text",

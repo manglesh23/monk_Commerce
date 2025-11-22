@@ -11,12 +11,18 @@ dotenv.config();
 const app= express();
 app.use(express.json());
 
+ // ---------------------------------------------
+  // ROUTES FOR AUTH, PRODUCT, CART, ORDER, COUPON
+  // ---------------------------------------------
 app.use("/api/auth",router );
 app.use("/api/products",productRoute);
 app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRoute);
 app.use("/api/coupon",couponRoute);
 
+ // ---------------------------------------------
+  // PORT:8000
+  // ---------------------------------------------
 connectDatabase()
   .then(() => {
     app.listen(process.env.PORT, () => {

@@ -2,6 +2,10 @@ import Order from "../models/Order.js";
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
 
+ // -----------------------------------------------------------------------------
+  // USER PLACE ORDER, USER ID IS HARDCODED CAN BE FETCHED FORM TOKEN
+  // ----------------------------------------------------------------------------
+
 export const placeOrder = async (req, res) => {
   try {
     const userId = "691dac6684e16f331e2c4b70";

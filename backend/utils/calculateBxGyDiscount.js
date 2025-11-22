@@ -1,9 +1,12 @@
+ // ---------------------------------------------
+  // DISCOUNT CALCULATION FOR COUPON BxGy
+  // ---------------------------------------------
 export function calculateBxGyDiscount(coupon, cartItems,productMap) {
   let discount = 0;
 
   const buyCounts = {};
 
-  // Count items user is buyingp
+  // Count items user is buying
   cartItems.forEach((item) => {
     buyCounts[item.productId] = item.quantity;
   });

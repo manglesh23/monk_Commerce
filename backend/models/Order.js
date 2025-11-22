@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+ // ---------------------------------------------
+  // ORDER SCHEMA
+  // ---------------------------------------------
 const orderSchema = new mongoose.Schema(
   {
     userId: {

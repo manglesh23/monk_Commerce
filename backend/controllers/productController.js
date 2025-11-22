@@ -1,5 +1,8 @@
 import Product from "../models/Product.js";
 
+ // ---------------------------------------------
+  // USER CAN ADD PRODUCT IN THEIR CART
+  // ---------------------------------------------
 export const addProduct = async (req, res) => {
   try {
     const { title, description, price, stock, categories, images } = req.body;

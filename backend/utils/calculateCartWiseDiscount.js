@@ -1,3 +1,6 @@
+ // ---------------------------------------------
+  // CALCULATION FOR CART WISE DISCOUNT
+  // ---------------------------------------------
 export function calculateCartWiseDiscount(coupon, cartTotal) {
   if (cartTotal < (coupon.minCartAmount || 0)) return 0;
 
