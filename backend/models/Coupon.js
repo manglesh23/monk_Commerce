@@ -18,7 +18,7 @@ const couponSchema = new mongoose.Schema({
     enum: ["flat", "percent"],
   },
   discountValue: Number,
-  minCartAmount: Number,
+  minCartAmount: Number,                //Minmun Cart Amount is Required to apply CART_WISE Coupon.
   expiry: { type: Date, required: true },
   isActive: { type: Boolean, default: true },
   usageLimit: { type: Number, default: 999999 },
