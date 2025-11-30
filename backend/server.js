@@ -6,6 +6,7 @@ import productRoute from './routes/productRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import orderRoute from './routes/orderRouters.js';
 import couponRoute from './routes/couponRoutes.js';
+import { slidingRateLimiter } from './middlewares/rateLimiter.js';
 dotenv.config();
 
 const app= express();
@@ -14,6 +15,7 @@ app.use(express.json());
  // ---------------------------------------------
   // ROUTES FOR AUTH, PRODUCT, CART, ORDER, COUPON
   // ---------------------------------------------
+app.use(slidingRateLimiter);  
 app.use("/api/auth",router );
 app.use("/api/products",productRoute);
 app.use("/api/cart",cartRouter);
