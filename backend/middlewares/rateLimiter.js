@@ -3,7 +3,7 @@ import redis from "../utils/redis.js";
 const WINDOW_SIZE_IN_SECONDS = 60; // 1 minute
 const MAX_REQUESTS = 10; // max 10 reqs per window
  // ---------------------------------------------
-  // TOKEN VERIFICATION
+  // Rate Limiter
   // ---------------------------------------------
 export const slidingRateLimiter = async (req, res, next) => {
   const ip = req.ip;
