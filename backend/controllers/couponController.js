@@ -123,6 +123,7 @@ export const createCoupon = async (req, res) => {
   // ---------------------------------------------
 export const getAllCoupons = async (req, res) => {
   try {
+    console.log("Cookie token:-",req.cookies)
     const coupons = await Coupon.find();
     res.json(coupons);
   } catch (err) {

@@ -9,11 +9,13 @@ import couponRoute from './routes/couponRoutes.js';
 import { slidingRateLimiter } from './middlewares/rateLimiter.js';
 import guessAgerouter from './routes/apiIntegrationRoutes.js';
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app= express();
 app.use(express.json());
 app.use(cors())
+app.use(cookieParser());
 
  // ---------------------------------------------
   // ROUTES FOR AUTH, PRODUCT, CART, ORDER, COUPON

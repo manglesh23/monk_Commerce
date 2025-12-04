@@ -6,7 +6,6 @@ import {
   generateRefreshToken,
 } from "../utils/generateToken.js";
 
-
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -22,14 +21,14 @@ export const registerUser = async (req, res) => {
     }
 
     // Hash password
-    const saltRounds = 12; 
+    const saltRounds = 12;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Save user
     const user = await User.create({
       name,
       email,
-      passwordHash
+      passwordHash,
     });
 
     return res.status(201).json({
@@ -37,10 +36,9 @@ export const registerUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
-      }
+        email: user.email,
+      },
     });
-
   } catch (error) {
     console.error("Registration error:", error);
     return res.status(500).json({ message: "Server error" });
@@ -53,7 +51,9 @@ export const loginUser = async (req, res) => {
 
     // Input validation
     if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
     }
 
     // Find user
@@ -72,7 +72,19 @@ export const loginUser = async (req, res) => {
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
-    
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+      maxAge: 15 * 60 * 1000, // 15 mins
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 15 mins
+    });
     // user.refreshToken = refreshToken;   //refresh token in can be store DB(Mongo/Redis) for session tracking
     // await user.save();
 
@@ -86,7 +98,6 @@ export const loginUser = async (req, res) => {
         email: user.email,
       },
     });
-
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Server error" });
